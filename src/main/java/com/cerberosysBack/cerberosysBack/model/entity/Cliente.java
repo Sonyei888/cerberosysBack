@@ -17,40 +17,26 @@ public class Cliente implements Serializable {
     @Column(name = "id_cliente")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idCliente;
-    
+
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Column(name = "apellido")
     private String apellido;
-    
+
     @Column(name = "correo")
     private String correo;
-    
+
     @Column(name = "fecha_registro")
     private Date fechaRegistro;
 
-    // Constructor sin argumentos
-    public Cliente() {
-    }
-
-	// Constructor con argumentos
-    public Cliente(Integer idCliente, String nombre, String apellido, String correo, Date fechaRegistro) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.correo = correo;
-        this.fechaRegistro = fechaRegistro;
+    // Constructor privado
+    private Cliente() {
     }
 
     // Getter para idCliente
     public Integer getIdCliente() {
         return idCliente;
-    }
-
-    // Setter para idCliente
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
     }
 
     // Getter para nombre
@@ -91,6 +77,55 @@ public class Cliente implements Serializable {
     // Setter para fechaRegistro
     public void setFechaRegistro(Date fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+ // Método estático para obtener un Builder
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    // Inner class Builder
+    public static class Builder {
+        private Integer idCliente;
+        private String nombre;
+        private String apellido;
+        private String correo;
+        private Date fechaRegistro;
+
+        public Builder idCliente(Integer idCliente) {
+            this.idCliente = idCliente;
+            return this;
+        }
+
+        public Builder nombre(String nombre) {
+            this.nombre = nombre;
+            return this;
+        }
+
+        public Builder apellido(String apellido) {
+            this.apellido = apellido;
+            return this;
+        }
+
+        public Builder correo(String correo) {
+            this.correo = correo;
+            return this;
+        }
+
+        public Builder fechaRegistro(Date fechaRegistro) {
+            this.fechaRegistro = fechaRegistro;
+            return this;
+        }
+
+        public Cliente build() {
+            Cliente cliente = new Cliente();
+            cliente.idCliente = this.idCliente;
+            cliente.nombre = this.nombre;
+            cliente.apellido = this.apellido;
+            cliente.correo = this.correo;
+            cliente.fechaRegistro = this.fechaRegistro;
+            return cliente;
+        }
     }
 
     @Override

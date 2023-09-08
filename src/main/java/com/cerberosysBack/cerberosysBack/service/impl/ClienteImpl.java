@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cerberosysBack.cerberosysBack.model.dao.ClienteDao;
+import com.cerberosysBack.cerberosysBack.model.dto.ClienteDto;
 import com.cerberosysBack.cerberosysBack.model.entity.Cliente;
 import com.cerberosysBack.cerberosysBack.service.ICliente;
 
@@ -18,7 +19,14 @@ public class ClienteImpl implements ICliente{
 	
 	@Transactional
 	@Override
-	public Cliente save(Cliente cliente) {
+	public Cliente save(ClienteDto clienteDto) {
+		Cliente cliente = Cliente.builder()
+				.idCliente(clienteDto.getIdCliente())
+				.nombre(clienteDto.getNombre())
+				.apellido(clienteDto.getApellido())
+				.correo(clienteDto.getCorreo())
+				.fechaRegistro(clienteDto.getFechaRegistro())
+				.build();
 		return clienteDao.save(cliente);
 	}
 
