@@ -3,8 +3,6 @@ package com.cerberosysBack.cerberosysBack.model.dto;
 import java.io.Serializable;
 import java.sql.Date;
 
-import com.cerberosysBack.cerberosysBack.model.entity.Cliente.Builder;
-
 public class ClienteDto implements Serializable {
 
     private Integer idCliente;
@@ -13,34 +11,50 @@ public class ClienteDto implements Serializable {
     private String correo;
     private Date fechaRegistro;
 
-  
-
     public Integer getIdCliente() {
         return idCliente;
+    }
+
+    public void setIdCliente(Integer idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNombre() {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public String getApellido() {
         return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
     public String getCorreo() {
         return correo;
     }
 
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     public Date getFechaRegistro() {
         return fechaRegistro;
     }
-    
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
     // Método estático para obtener un Builder
-       public static Builder builder() {
-           return new Builder();
-       }
-
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static class Builder {
         private Integer idCliente;

@@ -3,7 +3,7 @@ package com.cerberosysBack.cerberosysBack.service;
 import com.cerberosysBack.cerberosysBack.model.dto.ClienteDto;
 import com.cerberosysBack.cerberosysBack.model.entity.Cliente;
 
-public interface ICliente {
+public interface IClienteService {
 	
 	
 	Cliente save(ClienteDto cliente);
@@ -11,5 +11,8 @@ public interface ICliente {
 	Cliente findById(Integer id);
 	
 	void delete(Cliente cliente);
+	
+	boolean existsById(Integer id);
 
 }
+

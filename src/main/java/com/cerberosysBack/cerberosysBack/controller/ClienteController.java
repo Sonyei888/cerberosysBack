@@ -21,14 +21,14 @@ import org.springframework.http.ResponseEntity;
 import com.cerberosysBack.cerberosysBack.model.dto.ClienteDto;
 import com.cerberosysBack.cerberosysBack.model.entity.Cliente;
 import com.cerberosysBack.cerberosysBack.model.payload.MensajeResponse;
-import com.cerberosysBack.cerberosysBack.service.ICliente;
+import com.cerberosysBack.cerberosysBack.service.IClienteService;
 
 @RestController
 @RequestMapping("/api/v1")
 public class ClienteController {
 	
 	@Autowired
-	private ICliente clienteService;
+	private IClienteService clienteService;
 	
 	
 	@PostMapping("cliente")
@@ -64,26 +64,38 @@ public class ClienteController {
 		
 	} 
 	
-	@PutMapping("cliente")
+	@PutMapping("cliente/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<?> update(@RequestBody ClienteDto clienteDto) {
+	public ResponseEntity<?> update(@RequestBody ClienteDto clienteDto, @PathVariable Integer id){
 		Cliente clienteupdate = null;
 		try {
-			clienteupdate = clienteService.save(clienteDto);
-			clienteDto = ClienteDto.builder()
-					.idCliente(clienteupdate.getIdCliente())
-					.nombre(clienteupdate.getNombre())
-					.apellido(clienteupdate.getApellido())
-					.correo(clienteupdate.getCorreo())
-					.fechaRegistro(clienteupdate.getFechaRegistro())
-					.build();
+			
+			if(clienteService.existsById(id)) {
+				clienteDto.setIdCliente(id);
+				clienteupdate = clienteService.save(clienteDto);
+				clienteDto = ClienteDto.builder()
+						.idCliente(clienteupdate.getIdCliente())
+						.nombre(clienteupdate.getNombre())
+						.apellido(clienteupdate.getApellido())
+						.correo(clienteupdate.getCorreo())
+						.fechaRegistro(clienteupdate.getFechaRegistro())
+						.build();
+					return new ResponseEntity<>(
+						MensajeResponse.builder()
+						.mensaje("Guardado correctamente")
+						.object(clienteDto)
+						.build()
+						, HttpStatus.CREATED
+				);
+			}else {
 				return new ResponseEntity<>(
-					MensajeResponse.builder()
-					.mensaje("Guardado correctamente")
-					.object(clienteDto)
-					.build()
-					, HttpStatus.CREATED
-			);
+						MensajeResponse.builder()
+							.mensaje("El registro que intenta actualizar no se encuentra en la base de datos")
+							.object(null)
+							.build()
+						, HttpStatus.NOT_FOUND);
+				
+			}
 		}catch(DataAccessException exDt) {
 			return new ResponseEntity<>(
 					MensajeResponse.builder()

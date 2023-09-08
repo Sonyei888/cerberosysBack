@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cerberosysBack.cerberosysBack.model.dao.ClienteDao;
 import com.cerberosysBack.cerberosysBack.model.dto.ClienteDto;
 import com.cerberosysBack.cerberosysBack.model.entity.Cliente;
-import com.cerberosysBack.cerberosysBack.service.ICliente;
+import com.cerberosysBack.cerberosysBack.service.IClienteService;
 
 
 @Service
-public class ClienteImpl implements ICliente{
+public class ClienteImplService implements IClienteService{
 	
 
 	@Autowired
@@ -40,6 +40,11 @@ public class ClienteImpl implements ICliente{
 	@Override
 	public void delete(Cliente cliente) {
 		clienteDao.delete(cliente);
+	}
+
+	@Override
+	public boolean existsById(Integer id) {
+		return clienteDao.existsById(id);
 	}
 	
 	
