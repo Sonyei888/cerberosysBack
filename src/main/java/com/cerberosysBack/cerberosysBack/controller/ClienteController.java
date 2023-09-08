@@ -1,8 +1,17 @@
 package com.cerberosysBack.cerberosysBack.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+
 
 import com.cerberosysBack.cerberosysBack.model.entity.Cliente;
 import com.cerberosysBack.cerberosysBack.service.ICliente;
@@ -14,20 +23,29 @@ public class ClienteController {
 	@Autowired
 	private ICliente clienteService;
 	
-	public Cliente create(Cliente cliente) {
+	
+	@PostMapping("cliente")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cliente create(@RequestBody Cliente cliente) {
 		return clienteService.save(cliente);
 	}
 	
-	public Cliente update(Cliente cliente) {
+	@PutMapping("cliente")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Cliente update(@RequestBody Cliente cliente) {
 		return clienteService.save(cliente);
 	}
 	
-	public void delete(Integer id) {
+	@DeleteMapping("cliente/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable Integer id) {
 		Cliente clienteDelete = clienteService.findById(id);
 		clienteService.delete(clienteDelete);
 	}
 	
-	public Cliente showById(Integer id) {
+	@GetMapping("cliente/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Cliente showById(@PathVariable Integer id) {
 		return clienteService.findById(id);
 	}
 }

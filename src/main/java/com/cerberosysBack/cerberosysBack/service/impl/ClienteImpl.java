@@ -25,7 +25,6 @@ public class ClienteImpl implements ICliente{
 	@Transactional(readOnly = true)
 	@Override
 	public Cliente findById(Integer id) {
-		
 		return clienteDao.findById(id).orElse(null);
 	}
 
