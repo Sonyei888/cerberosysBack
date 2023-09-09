@@ -1,11 +1,15 @@
 package com.example.demo.controlador;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,13 +33,13 @@ public class ClienteControlador {
 		return repositorio.findAll();
 	}
 	
-	//guardar empleado
+	//guardar cliente
 	@PostMapping("/clientes")
 	public Cliente guardarCliente(@RequestBody Cliente cliente) {
 		return repositorio.save(cliente);
 	}
 	
-	//Buscar un empleado por id
+	//Buscar un cliente por id
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> obtenerClientePorId(@RequestBody Long id){
 		Cliente cliente = repositorio.findById(id)
@@ -43,7 +47,7 @@ public class ClienteControlador {
 		return ResponseEntity.ok(cliente);
 	}
 	
-	
+	//Actualizar un cliente
 	@PutMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> actualizarCliente(@RequestBody Long id, @RequestBody Cliente detallesCliente){
 		Cliente cliente = repositorio.findById(id)
@@ -57,4 +61,17 @@ public class ClienteControlador {
 		Cliente clienteActualizado = repositorio.save(cliente);
 		return ResponseEntity.ok(clienteActualizado);
 	}
+	
+	
+	//Eliminar un clinete
+		@DeleteMapping("/clientes/{id}")
+		public ResponseEntity<Map<String,Boolean>> eliminarCliente(@PathVariable Long id){
+			Cliente cliente = repositorio.findById(id)
+					            .orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el ID : " + id));
+			
+			repositorio.delete(cliente);
+			Map<String, Boolean> respuesta = new HashMap<>();
+			respuesta.put("eliminar",Boolean.TRUE);
+			return ResponseEntity.ok(respuesta);
+	    }
 }
