@@ -41,7 +41,7 @@ public class ClienteControlador {
 	
 	//Buscar un cliente por id
 	@GetMapping("/clientes/{id}")
-	public ResponseEntity<Cliente> obtenerClientePorId(@RequestBody Long id){
+	public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
 		Cliente cliente = repositorio.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el ID: " + id));
 		return ResponseEntity.ok(cliente);
