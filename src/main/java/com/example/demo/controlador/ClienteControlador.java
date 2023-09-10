@@ -39,7 +39,7 @@ public class ClienteControlador {
 		return repositorio.save(cliente);
 	}
 	
-	//Buscar un cliente por id
+	//Buscar un cliente por id backend 
 	@GetMapping("/clientes/{id}")
 	public ResponseEntity<Cliente> obtenerClientePorId(@PathVariable Long id){
 		Cliente cliente = repositorio.findById(id)
