@@ -47,9 +47,9 @@ public class ClienteControlador {
 		return ResponseEntity.ok(cliente);
 	}
 	
-	//Actualizar un cliente
+	//Actualizar un cliente backend 
 	@PutMapping("/clientes/{id}")
-	public ResponseEntity<Cliente> actualizarCliente(@RequestBody Long id, @RequestBody Cliente detallesCliente){
+	public ResponseEntity<Cliente> actualizarCliente(@PathVariable Long id, @RequestBody Cliente detallesCliente){
 		Cliente cliente = repositorio.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("No existe el cliente con el ID: " + id));
 		
